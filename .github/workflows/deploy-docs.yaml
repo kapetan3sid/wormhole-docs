@@ -11,40 +11,48 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout wormhole-mkdocs repo
+      # 1. Clone wormhole-mkdocs repo (wrangler.toml + mkdocs config)
+      - name: Clone wormhole-mkdocs
         uses: actions/checkout@v4
         with:
-          repository: kapetan3sid/wormhole-mkdocs
+          repository: wormhole-foundation/wormhole-mkdocs
           path: wormhole-mkdocs
 
+      # 2. Checkout current repo (wormhole-docs) into the mkdocs folder
       - name: Checkout wormhole-docs (this repo)
         uses: actions/checkout@v4
         with:
-          path: kapetan3sid/wormhole-docs
+          path: wormhole-mkdocs/wormhole-docs
 
-      - name: Set up Python 3.11.10
+      # 3. Set up Python 3.11.10
+      - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: 3.11.10
 
+      # 4. Install MkDocs requirements
       - name: Install dependencies
         run: pip install -r requirements.txt
         working-directory: wormhole-mkdocs
 
-      - name: Build site with MkDocs
+      # 5. Build the MkDocs site
+      - name: Build documentation
         run: mkdocs build
         working-directory: wormhole-mkdocs
 
-      - name: Install Wrangler v4
+      # 6. Install Wrangler v4
+      - name: Install Wrangler
         run: npm install -g wrangler@4
-      
-      - name: Deploy using Wrangler
+
+      # 7. Show wrangler.toml (for debug, can be removed)
+      - name: Check wrangler.toml contents
+        run: cat wrangler.toml
+        working-directory: wormhole-mkdocs
+
+      # 8. Deploy to Cloudflare Workers
+      - name: Deploy to Cloudflare
         run: wrangler deploy
         working-directory: wormhole-mkdocs
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-      
-      
-      
-      
