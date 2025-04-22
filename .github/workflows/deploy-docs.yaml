@@ -7,40 +7,34 @@ on:
 
 jobs:
   deploy:
-    name: Build and Deploy MkDocs Docs
+    name: Build and Deploy Docs
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Clone wormhole-mkdocs repo (where mkdocs.yml + wrangler.toml live)
-      - name: Clone wormhole-mkdocs
+      - name: Checkout wormhole-mkdocs repo
         uses: actions/checkout@v4
         with:
-          repository: wormhole-foundation/wormhole-mkdocs
+          repository: kapetan3sid/wormhole-mkdocs
           path: wormhole-mkdocs
 
-      # 2. Clone the current wormhole-docs repo inside wormhole-mkdocs/wormhole-docs
-      - name: Clone wormhole-docs into wormhole-mkdocs
+      - name: Checkout wormhole-docs (this repo)
         uses: actions/checkout@v4
         with:
-          path: wormhole-mkdocs/wormhole-docs
+          path: kapetan3sid/wormhole-docs
 
-      # 3. Set up Python (3.11.10)
-      - name: Set up Python
+      - name: Set up Python 3.11.10
         uses: actions/setup-python@v4
         with:
           python-version: 3.11.10
 
-      # 4. Install Python dependencies (from wormhole-mkdocs/requirements.txt)
-      - name: Install MkDocs requirements
+      - name: Install dependencies
         run: pip install -r requirements.txt
         working-directory: wormhole-mkdocs
 
-      # 5. Build the MkDocs site
-      - name: Build documentation site
+      - name: Build site with MkDocs
         run: mkdocs build
         working-directory: wormhole-mkdocs
 
-      # 6. Deploy to Cloudflare Workers
       - name: Deploy to Cloudflare Workers
         uses: cloudflare/wrangler-action@v3
         with:
