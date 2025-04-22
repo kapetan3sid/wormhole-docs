@@ -6,6 +6,7 @@ categories: Basics
 
 # Get Started with Core Contracts
 
+
 ## Introduction
 
 Wormhole's Core Contracts, deployed on each supported blockchain network, enable the fundamental operations of sending and receiving cross-chain messages.
