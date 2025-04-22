@@ -1,4 +1,4 @@
-name: Deploy MkDocs to Cloudflare Pages
+name: Build and Deploy Docs to Cloudflare Pages
 
 on:
   push:
@@ -10,33 +10,40 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Clone wormhole-mkdocs
+      # 1. Clone wormhole-mkdocs repo
+      - name: Checkout wormhole-mkdocs repo
         uses: actions/checkout@v4
         with:
           repository: kapetan3sid/wormhole-mkdocs
           path: wormhole-mkdocs
 
-      - name: Clone wormhole-docs (this repo)
+      # 2. Checkout this repo (wormhole-docs) into wormhole-mkdocs/wormhole-docs
+      - name: Checkout wormhole-docs content
         uses: actions/checkout@v4
         with:
           path: wormhole-mkdocs/wormhole-docs
 
-      - name: Set up Python
+      # 3. Set up Python (for mkdocs)
+      - name: Set up Python 3.11.10
         uses: actions/setup-python@v4
         with:
           python-version: 3.11.10
 
-      - name: Install dependencies
+      # 4. Install MkDocs dependencies
+      - name: Install requirements
         run: pip install -r requirements.txt
         working-directory: wormhole-mkdocs
 
-      - name: Build MkDocs site
+      # 5. Build the docs using mkdocs
+      - name: Build documentation
         run: mkdocs build
         working-directory: wormhole-mkdocs
 
-      - name: Install Wrangler
+      # 6. Install Wrangler
+      - name: Install Wrangler CLI
         run: npm install -g wrangler@4
 
+      # 7. Deploy using Cloudflare Pages
       - name: Deploy to Cloudflare Pages
         run: wrangler pages deploy ./site --project-name=wormhole-docs
         working-directory: wormhole-mkdocs
