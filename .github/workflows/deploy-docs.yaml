@@ -15,14 +15,14 @@ jobs:
       - name: Clone wormhole-mkdocs
         uses: actions/checkout@v4
         with:
-          repository: wormhole-foundation/wormhole-mkdocs
+          repository: wkapetan3sid/wormhole-mkdocs
           path: wormhole-mkdocs
 
       # 2. Checkout current repo (wormhole-docs) into the mkdocs folder
       - name: Checkout wormhole-docs (this repo)
         uses: actions/checkout@v4
         with:
-          path: wormhole-mkdocs/wormhole-docs
+          path: kapetan3sid/wormhole-docs
 
       # 3. Set up Python 3.11.10
       - name: Set up Python
