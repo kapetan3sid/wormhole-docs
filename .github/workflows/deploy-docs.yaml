@@ -39,9 +39,10 @@ jobs:
         run: npm install -g wrangler@4
       
       - name: Deploy using Wrangler
-        run: wrangler deploy
+        run: wrangler deploy --config wrangler.toml
         working-directory: wormhole-mkdocs
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      
       
