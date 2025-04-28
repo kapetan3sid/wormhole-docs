@@ -1,4 +1,4 @@
-name: Build and Deploy Docs to Cloudflare Pages
+name: Build and Deploy Docs to Cloudflare Workers
 
 on:
   push:
@@ -17,10 +17,11 @@ jobs:
           repository: kapetan3sid/wormhole-mkdocs
           path: wormhole-mkdocs
 
-      # 2. Checkout this repo (wormhole-docs) into wormhole-mkdocs/wormhole-docs
+      # 2. Clone wormhole-docs into wormhole-mkdocs
       - name: Checkout wormhole-docs content
         uses: actions/checkout@v4
         with:
+          repository: kapetan3sid/wormhole-docs
           path: wormhole-mkdocs/wormhole-docs
 
       # 3. Set up Python (for mkdocs)
@@ -43,9 +44,10 @@ jobs:
       - name: Install Wrangler CLI
         run: npm install -g wrangler@4
 
-      # 7. Deploy using Cloudflare Pages
-      - name: Deploy to Cloudflare Pages
-        run: wrangler pages deploy ./site --project-name=wormhole-docs
-        working-directory: wormhole-mkdocs
+      # 7. Deploy using Cloudflare Workers
+      - name: Deploy to Cloudflare Workers
+        run: wrangler deploy
+        working-directory: wormhole-mkdocs/wormhole-docs
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }} 
