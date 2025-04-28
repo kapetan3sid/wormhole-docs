@@ -6,6 +6,8 @@ description: Follow the guides in this section to learn how to run off-chain inf
 
 # Infrastructure
 
+
+
 ## Get Started
 
 Follow the guides in this section to learn how to run off-chain infrastructure services, such as running a spy or a customized relayer.
