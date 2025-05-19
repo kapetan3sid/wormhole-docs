@@ -23,7 +23,7 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Install MkDocs + plugins
+      - name: Install MkDocs dependencies
         run: |
           cd mkdocs
           pip install -r requirements.txt
@@ -39,8 +39,7 @@ jobs:
       - name: Deploy to Cloudflare Pages
         run: |
           cd mkdocs
-          wrangler pages deploy site --project-name=wormhole-docs --branch=andreja-cloudflare --commit-dirty=true
+          wrangler pages deploy site --project-name=wormhole-docs-test --branch=andreja-cloudflare --commit-dirty=true
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
-
