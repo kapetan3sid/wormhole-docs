@@ -10,18 +10,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout wormhole-docs
-        uses: actions/checkout@v3
-        with:
-          ref: andreja/cloudflare
-
       - name: Clone wormhole-mkdocs (andreja/cloudflare)
         run: |
           git clone --single-branch --branch andreja/cloudflare https://github.com/kapetan3sid/wormhole-mkdocs.git mkdocs
 
-      - name: Copy docs content into mkdocs/docs
+      - name: Clone wormhole-docs (andreja/cloudflare) into mkdocs/wormhole-docs
         run: |
-          rsync -av --delete ./ mkdocs/docs
+          git clone --single-branch --branch andreja/cloudflare https://github.com/kapetan3sid/wormhole-docs.git mkdocs/wormhole-docs
 
       - name: Set up Python
         uses: actions/setup-python@v4
