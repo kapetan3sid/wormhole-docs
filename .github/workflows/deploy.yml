@@ -39,7 +39,8 @@ jobs:
       - name: Deploy to Cloudflare Pages
         run: |
           cd mkdocs
-          wrangler pages publish site --project-name=wormhole-docs --branch=andreja-cloudflare
+          wrangler pages deploy site --project-name=wormhole-docs --branch=andreja-cloudflare --commit-dirty=true
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+
