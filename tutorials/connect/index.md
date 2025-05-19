@@ -6,7 +6,8 @@ categories: Connect, Transfer
 
 # Connect
 
-Wormhole Connect makes it simple to link your application to multiple blockchain ecosystems. These tutorials will teach you how to integrate Connect into your projects, streamline cross-chain interactions, simplify user onboarding, and deliver a smoother overall experience.
+Wormhole Connect makes it simple to link your application to multiple blockchain ecosystems. These tutorials will teach you how to integrate Connect into your projects, streamline cross-chain interactions, simplify user onboarding, and deliver a smoother overall experience.  Bla bla
+
 
 ## Tutorials
 
